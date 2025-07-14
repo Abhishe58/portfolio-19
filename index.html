@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <title>Video Background Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Century Gothic, sans-serif;
+    }
+
+    body, html {
+      height: 200vh; /* to allow scrolling */
+    }
+
+    .video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .overlay {
+      position: relative;
+      height: 100vh;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      flex-direction: column;
+      color: white;
+    }
+    .fade-out {
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+    .header
+    {
+        position: relative;
+        height: 50px;
+        width: 80%;
+        padding: 10px;
+        background-color: white;
+        color: black;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-radius: 5px;
+    }
+    .manu
+    {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .manuName
+    {
+        padding: 5px;
+        color: #333;
+        cursor: pointer;
+        transition: 1s;
+    }
+    .manuName:hover
+    {
+        color: black;
+    }
+    .body
+    {
+        position: relative;
+        height: calc(100vh - 50px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .title
+    {
+      font-size: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .containera, .containerb
+    {
+        position: relative;
+        min-height: 100vh;
+        width: 100%;
+        padding: 50px;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .boxa, .boxb
+    {
+        position: relative;
+        height: 50vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        justify-content: center;
+    }
+    .boxb
+    {
+        align-items: start;
+    }
+    .nameh
+    {
+        font-size: 50px;
+    }
+    .projectContainer
+    {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .projectBox, .lamiBox
+    {
+      position: relative;
+      height: 120px;
+      width: 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .projectImg, .lanImg
+    {
+      height: 100px;
+      width: 120px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+    .lanImg
+    {
+      background-color: white;
+      object-fit: contain;
+    }
+    .projectName, .lanName
+    {
+      width: 100%;
+      text-align: center;
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .containerc
+    {
+      position: relative;
+      height: max-content;
+      width: 100%;
+      padding: 50px;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .skillContainer
+    {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .languageBox
+    {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .contactLink
+    {
+      position: relative;
+      padding: 5px;
+      color: white;
+      text-decoration: 2px underline white;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      gap: 5px;
+    }
+    @media (max-width: 560px) {
+      .overlay
+      {
+        padding: 10px;
+      }
+      .header
+      {
+        width: 100%;
+      }
+      .manu
+      {
+        overflow-x: scroll;
+      }
+      .manu::-webkit-scrollbar
+      {
+        display: none;
+      }
+      .title
+      {
+        font-size: 22px;
+      }
+      .containera, .containerb, .containerc
+      {
+        padding: 10px;
+      }
+      .projectContainer, .languageBox
+      {
+        align-items: center;
+        justify-content: center;
+      }
+      .boxa, .boxb
+      {
+        height: max-content;
+      }
+    }
+  </style>
+</head>
+<body>
+  <video class="video-bg" muted playsinline id="bgVideo">
+  <source src="avideo.mp4" type="video/mp4" />
+  Your browser does not support HTML5 video.
+  </video>
+
+
+  <!-- Content Over Video -->
+  <div class="overlay fade-out" id="introText">
+    <div class="header">
+        <div class="manu">
+            <p class="manuName">Home</p>
+            <p class="manuName">About</p>
+            <p class="manuName">Projects</p>
+            <p class="manuName">Skils</p>
+            <p class="manuName">Contact</p>
+            <p class="manuName">Resume</p>
+        </div>
+    </div>
+    <div class="body">
+        <p class="title"><ion-icon name="logo-apple-ar"></ion-icon>|ABHISHEK MEVADA</p>
+    </div>
+
+  </div>
+
+  <!-- More content to scroll to -->
+  <div class="containera">
+    <div class="boxa">
+        <h1 class="nameh">Hi, I'm Abhishek Mevada</h1>
+        <h2>Full-Stack Developer | AI Creator | Data Science And Analysis</h2>
+    </div>
+    <div class="boxb">
+        <p>Welcome to my digital portfolio — a space where creativity meets technology. I specialize in building smart, responsive, and user-focused web applications that solve real-world problems.</p><br>
+        <p>With experience in both front-end and back-end development, I bring a complete skillset to the table — from designing sleek user interfaces to architecting robust backend systems. But my passion doesn’t stop there — I also create intelligent AI models and dive deep into data to uncover insights and drive decisions.</p><br>
+        <p>Every project I work on is a step toward making tech more meaningful, efficient, and impactful. Whether you're a potential collaborator,employer, or just a follow tech enthusiast, I'm glad you're here.</p>
+
+        <p style="margin-top: 20px;"><strong>Let’s build something amazing together.</strong></p>
+    </div>
+  </div>
+
+  <div class="containerb">
+    <h2>About Me</h2>
+    <p>Hi, I'm <strong>Abhishek Mevada</strong>, a multi-disciplinary developer with a passion for crafting intelligent and user-centric web experiences. I specialize in both front-end and back-end development, and I love bringing ideas to life using code.</p>
+
+    <p>My journey began with HTML and CSS, and over time, I expanded into JavaScript, Python, Flask, and beyond. Today, I build full-stack applications that not only look good but also perform efficiently. From creating responsive user interfaces to setting up secure back-end APIs, I enjoy working across the entire web stack.</p>
+
+    <p>In addition to web development, I have a strong interest in <strong>Artificial Intelligence</strong> and <strong>Data Science</strong>. I've developed AI-powered features like intelligent chatbots, as well as performed data analysis to uncover insights and patterns that help solve real-world problems.</p>
+
+    <p>I believe in continuous learning and constantly challenge myself with new projects and technologies. Whether it's building a personal assistant, an e-commerce platform, or analyzing data trends, I'm driven by the impact software can have.</p>
+
+    <p>When I'm not coding, you'll find me experimenting with new ideas, exploring open-source tools, or improving my knowledge of machine learning and system design.</p>
+
+    <p>I'm currently open to exciting opportunities where I can grow, collaborate, and contribute to meaningful projects.</p>
+  </div>
+
+  <div class="containerc">
+    <h2>Projects</h2>
+    <div class="projectContainer">
+      <div class="projectBox">
+        <img src="edulens.png" class="projectImg" style="object-fit: contain;background-color: #101010;" alt="" srcset="">
+        <a href="https://studentresultpredictor.pythonanywhere.com/" class="projectName">EduLens</a>
+      </div>
+      <div class="projectBox">
+        <img src="qr_code.png" class="projectImg" style="object-fit: contain;" alt="" srcset="">
+        <a href="https://abhishe58.github.io/QR-CODE-GENERATOR/" class="projectName">QR Code Generater</a>
+      </div>
+      <div class="projectBox">
+        <img src="imga.png" class="projectImg" alt="" srcset="">
+        <a href="https://abhishe58.github.io/Car-race/" class="projectName">Car Race</a>
+      </div>
+      <div class="projectBox">
+        <img src="square_fall.PNG" class="projectImg" alt="" srcset="">
+        <a href="https://abhishe58.github.io/squarefall/" class="projectName">Square Fall</a>
+      </div>
+      <div class="projectBox">
+        <img src="victory_hand.PNG" class="projectImg" style="object-fit: contain;background-color: #121212;" alt="" srcset="">
+        <a href="https://abhishe58.github.io/victory-hand/" class="projectName">Victory Hand</a>
+      </div>
+      <div class="projectBox">
+        <img src="truth_dare.PNG" class="projectImg" style="object-fit: contain;background-color: #272727;" alt="" srcset="">
+        <a href="https://abhishe58.github.io/Truth-and-dare-game./" class="projectName">Truth and Dare</a>
+      </div>
+      <div class="projectBox">
+        <img src="ecommerce.png" class="projectImg" alt="" srcset="">
+        <a href="https://ecommerce58.pythonanywhere.com/" class="projectName">E-Commerce</a>
+      </div>
+      <div class="projectBox">
+        <img src="blog.png" class="projectImg" alt="" srcset="">
+        <a href="https://theblogs.pythonanywhere.com/" class="projectName">The Blog</a>
+      </div>
+      <div class="projectBox">
+        <img src="taskreminder.jpg" class="projectImg" alt="" srcset="">
+        <a href="https://taskmanager5.pythonanywhere.com/" class="projectName">Task Reminder</a>
+      </div>
+      <div class="projectBox">
+        <img src="fitness.png" class="projectImg" alt="" srcset="">
+        <a href="https://myfltness.pythonanywhere.com/" class="projectName">Fitness Tracker</a>
+      </div>
+      <div class="projectBox">
+        <img src="weather.jpg" class="projectImg" alt="" srcset="">
+        <a href="https://abhishe58.github.io/abhi-weather/" class="projectName">Abhi Weather</a>
+      </div>
+      <div class="projectBox">
+        <img src="imgb.png" class="projectImg" alt="" srcset="">
+        <a href="https://studentresultpredictor.pythonanywhere.com/" class="projectName">EduLens</a>
+      </div>
+      <div class="projectBox">
+        <img src="passwordmanager.png" class="projectImg" alt="" srcset="" style="background-color: white;">
+        <a href="https://passwordsmanager.pythonanywhere.com/" class="projectName">Password Manager</a>
+      </div>
+      <div class="projectBox">
+        <img src="snake.png" class="projectImg" alt="" srcset="">
+        <a href="https://abhishe58.github.io/The-Snake/" class="projectName">The Snake</a>
+      </div>
+  </div>
+  </div>
+
+  <div class="containerc">
+    <h2>Skills</h2>
+    <div class="skillContainer">
+      <p><strong>Fronted Language</strong></p>
+      <div class="languageBox">
+        <div class="lamiBox">
+          <img src="html.png" alt="" class="lanImg">
+          <p class="lanName">HTML</p>
+        </div>
+        <div class="lamiBox">
+          <img src="css.png" alt="" class="lanImg">
+          <p class="lanName">CSS</p>
+        </div>
+        <div class="lamiBox">
+          <img src="js.png" alt="" class="lanImg" style="background-color: #f8dc3e;">
+          <p class="lanName">JS</p>
+        </div>
+        <div class="lamiBox">
+          <img src="react.png" alt="" class="lanImg" style="background-color: #292c33;">
+          <p class="lanName">REACT</p>
+        </div>
+      </div>
+      <p><strong>Backend Language</strong></p>
+      <div class="languageBox">
+        <div class="lamiBox">
+          <img src="flask.png" alt="" class="lanImg">
+          <p class="lanName">FLASK</p>
+        </div>
+        <div class="lamiBox">
+          <img src="node.jpg" alt="" class="lanImg">
+          <p class="lanName">NODE</p>
+        </div>
+        <div class="lamiBox">
+          <img src="express.png" alt="" class="lanImg" style="background-color: #222;">
+          <p class="lanName">EXPRESS</p>
+        </div>
+      </div>
+      <p><strong>Database Language</strong></p>
+      <div class="languageBox">
+        <div class="lamiBox">
+          <img src="mysql.png" alt="" class="lanImg">
+          <p class="lanName">MYSQL</p>
+        </div>
+        <div class="lamiBox">
+          <img src="sqlite.png" alt="" class="lanImg">
+          <p class="lanName">SQL LITE</p>
+        </div>
+        <div class="lamiBox">
+          <img src="mongodb.png" alt="" class="lanImg" style="background-color: #031c0f;">
+          <p class="lanName">MONGO DB</p>
+        </div>
+      </div>
+      <p><strong>Data Science And Analysis Language</strong></p>
+      <div class="languageBox">
+        <div class="lamiBox">
+          <img src="pandas.png" alt="" class="lanImg">
+          <p class="lanName">PANDAS</p>
+        </div>
+        <div class="lamiBox">
+          <img src="matplotlib.png" alt="" class="lanImg">
+          <p class="lanName">MATPLOTLIB</p>
+        </div>
+        <div class="lamiBox">
+          <img src="seaborn.png" alt="" class="lanImg">
+          <p class="lanName">SEABORN</p>
+        </div>
+        <div class="lamiBox">
+          <img src="sklearn.jpg" alt="" class="lanImg">
+          <p class="lanName">SKLEARN</p>
+        </div>
+      </div>
+      <p><strong>AI/ML Language</strong></p>
+      <div class="languageBox">
+        <div class="lamiBox">
+          <img src="imga.png" alt="" class="lanImg">
+          <p class="lanName">RANDOM FOREST</p>
+        </div>
+        <div class="lamiBox">
+          <img src="imga.png" alt="" class="lanImg">
+          <p class="lanName">KNN</p>
+        </div>
+        <div class="lamiBox">
+          <img src="imga.png" alt="" class="lanImg">
+          <p class="lanName">LINEAR REGRESSION</p>
+        </div>
+        <div class="lamiBox">
+          <img src="imga.png" alt="" class="lanImg">
+          <p class="lanName">TREE CLASSIFIER</p>
+        </div>
+        <div class="lamiBox">
+          <img src="imga.png" alt="" class="lanImg">
+          <p class="lanName">LOGISTIC REGRESSION</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="containerc">
+    <h2>Contact Me</h2>
+    <a href="https://wa.me/+919510954023" class="contactLink"><ion-icon name="logo-whatsapp"></ion-icon> +91 9510954023</a>
+    <a href="mailto:abhishekmevada85@gmail.com" class="contactLink"><ion-icon name="mail-outline"></ion-icon> abhishekmevada85@gmail.com</a>
+    <a href="tel:+919510954023" class="contactLink"><ion-icon name="call-outline"></ion-icon> +91 9510954023</a>
+  </div>
+  <script>
+  // Fade out text on scroll
+//   window.addEventListener("scroll", () => {
+    // const scrollY = window.scrollY;
+    // const vh = window.innerHeight;
+    // const text = document.getElementById("introText");
+
+    // let opacity = Math.max(1 - scrollY / (vh * 0.8), 0);
+    // text.style.opacity = opacity;
+//   });
+
+const video = document.getElementById("bgVideo");
+const text = document.getElementById("introText");
+
+let scrollTimeout;
+
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+  const vh = window.innerHeight;
+
+  // Fade out effect
+  let opacity = Math.max(1 - scrollY / (vh * 0.8), 0);
+  text.style.opacity = opacity;
+
+  // Play video during scroll at normal speed
+  if (video.paused) {
+    video.play().catch(() => {});
+  }
+  video.playbackRate = 1.0; // Normal speed during scroll
+
+  // Clear and reset scroll timeout
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(() => {
+    // Slow motion effect after scroll stops
+    if (!video.paused) {
+      video.playbackRate = 0.1; // Very slow speed
+    } else {
+      video.play().then(() => {
+        video.playbackRate = 0.5;
+      }).catch(() => {});
+    }
+  }, 150); // Trigger slow motion after 150ms of no scrolling
+});
+
+
+
+  // Scroll-scrub video ONLY after metadata is loaded
+//   video.addEventListener("loadedmetadata", () => {
+//     const duration = video.duration;
+
+//     gsap.to(video, {
+//       currentTime: duration,
+//       ease: "none",
+//       scrollTrigger: {
+//         trigger: "body",
+//         start: "top top",
+//         end: "bottom bottom",
+//         scrub: true
+//       }
+//     });
+//   });
+</script>
+</body>
+</html>
