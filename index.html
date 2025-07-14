@@ -234,6 +234,23 @@
   </style>
 </head>
 <body>
+  <!-- Loading Screen -->
+<div id="loadingScreen" style="
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  font-size: 2rem;
+">
+  Loading...
+</div>
   <video class="video-bg" muted playsinline id="bgVideo">
   <source src="avideo.mp4" type="video/mp4" />
   Your browser does not support HTML5 video.
@@ -466,7 +483,14 @@
 
 const video = document.getElementById("bgVideo");
 const text = document.getElementById("introText");
+const loadingScreen = document.getElementById("loadingScreen");
 
+video.oncanplaythrough = () => {
+  loadingScreen.style.display = "none"; // hide loader
+  text.style.display = "flex"; // show content if hidden
+};
+
+text.style.display = "none";
 let scrollTimeout;
 
 window.addEventListener("scroll", () => {
