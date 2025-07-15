@@ -69,6 +69,7 @@
         color: #333;
         cursor: pointer;
         transition: 1s;
+        text-decoration: none;
     }
     .manuName:hover
     {
@@ -261,12 +262,12 @@
   <div class="overlay fade-out" id="introText">
     <div class="header">
         <div class="manu">
-            <p class="manuName">Home</p>
-            <p class="manuName">About</p>
-            <p class="manuName">Projects</p>
-            <p class="manuName">Skils</p>
-            <p class="manuName">Contact</p>
-            <p class="manuName">Resume</p>
+            <a href="#home" class="manuName">Home</a>
+            <a href="#about" class="manuName">About</a>
+            <a href="#project" class="manuName">Projects</a>
+            <a href="#skill" class="manuName">Skils</a>
+            <a href="#contact" class="manuName">Contact</a>
+            <a href="#resume" class="manuName">Resume</a>
         </div>
     </div>
     <div class="body">
@@ -276,7 +277,7 @@
   </div>
 
   <!-- More content to scroll to -->
-  <div class="containera">
+  <div class="containera" id="home">
     <div class="boxa">
         <h1 class="nameh">Hi, I'm Abhishek Mevada</h1>
         <h2>Full-Stack Developer | AI Creator | Data Science And Analysis</h2>
@@ -290,7 +291,7 @@
     </div>
   </div>
 
-  <div class="containerb">
+  <div class="containerb" id="about">
     <h2>About Me</h2>
     <p>Hi, I'm <strong>Abhishek Mevada</strong>, a multi-disciplinary developer with a passion for crafting intelligent and user-centric web experiences. I specialize in both front-end and back-end development, and I love bringing ideas to life using code.</p>
 
@@ -305,7 +306,7 @@
     <p>I'm currently open to exciting opportunities where I can grow, collaborate, and contribute to meaningful projects.</p>
   </div>
 
-  <div class="containerc">
+  <div class="containerc" id="project">
     <h2>Projects</h2>
     <div class="projectContainer">
       <div class="projectBox">
@@ -367,7 +368,7 @@
   </div>
   </div>
 
-  <div class="containerc">
+  <div class="containerc" id="skill">
     <h2>Skills</h2>
     <div class="skillContainer">
       <p><strong>Fronted Language</strong></p>
@@ -464,7 +465,7 @@
     </div>
   </div>
 
-  <div class="containerc">
+  <div class="containerc" id="contact">
     <h2>Contact Me</h2>
     <a href="https://wa.me/+919510954023" class="contactLink"><ion-icon name="logo-whatsapp"></ion-icon> +91 9510954023</a>
     <a href="mailto:abhishekmevada85@gmail.com" class="contactLink"><ion-icon name="mail-outline"></ion-icon> abhishekmevada85@gmail.com</a>
